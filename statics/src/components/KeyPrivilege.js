@@ -1,4 +1,4 @@
-var App = React.createClass({
+var KeyPrivilege = React.createClass({
     getInitialState() {
         return {}
     },
@@ -38,4 +38,4 @@ var App = React.createClass({
         )
     }
 })
-module.exports = App
+module.exports = KeyPrivilege

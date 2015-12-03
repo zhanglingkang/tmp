@@ -24,10 +24,10 @@ module.exports = {
 
 
     entry: {
-        main: ["./main"]
+        main: ["./src/app"]
     },
     output: {
-        path: path.join(__dirname, "assets"),
+        path: path.join(__dirname, "build"),
         publicPath: "/assets/",
         filename: "[name].bundle.js"
         //chunkFilename: "[id].chunk.js"
@@ -42,10 +42,13 @@ module.exports = {
             test: /\.js$/,
             exclude: /node_modules/,
             //loader: 'react-hot!jsx-loader?harmony'
-            //loader:'babel-loader'
+            loader:'babel-loader',
+            query: {
+                presets: ['react', 'es2015']
+            }
         }, {
-            test: /\.less/,
-            loader: 'style-loader!css-loader!less-loader'
+            test: /\.scss/,
+            loader: 'style-loader!css-loader!sass-loader'
         }, {
             test: /\.(css)$/,
             loader: 'style-loader!css-loader'

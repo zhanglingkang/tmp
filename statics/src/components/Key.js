@@ -1,3 +1,4 @@
+var React=require('react')
 var Key = React.createClass({
     getInitialState() {
         return {}

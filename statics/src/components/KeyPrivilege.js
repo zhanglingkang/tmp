@@ -1,3 +1,4 @@
+var React=require('react')
 var KeyPrivilege = React.createClass({
     getInitialState() {
         return {}

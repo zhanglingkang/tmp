@@ -24,13 +24,20 @@ module.exports = {
 
 
     entry: {
-        main: ["./src/app"]
+        app: ['./src/app']
+        //jquery: ['./node_modules/jquery/dist/jquery.js']
+        //bootstrap: ['./node_modules/bootstrap/dist/css/bootstrap.css']
     },
     output: {
-        path: path.join(__dirname, "build"),
-        publicPath: "/assets/",
+        path: path.join(__dirname, "src"),
+        //publicPath: "/build/",
         filename: "[name].bundle.js"
-        //chunkFilename: "[id].chunk.js"
+        //chunkFilename: "[chunkhash].chunk.js"
+    },
+    externals: {
+        jquery: 'jQuery',
+        react: 'React',
+        'react-dom': 'ReactDOM'
     },
     module: {
         //preLoaders: [{
@@ -42,7 +49,7 @@ module.exports = {
             test: /\.js$/,
             exclude: /node_modules/,
             //loader: 'react-hot!jsx-loader?harmony'
-            loader:'babel-loader',
+            loader: 'babel-loader',
             query: {
                 presets: ['react', 'es2015']
             }
@@ -58,4 +65,4 @@ module.exports = {
         }]
     },
     plugins: []
-};
+}

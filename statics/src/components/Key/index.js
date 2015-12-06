@@ -10,7 +10,7 @@ var Key = React.createClass({
     render() {
         return (
             <div>
-                我是key
+                我是key1
             </div>
         )
     }

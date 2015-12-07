@@ -9,9 +9,12 @@ var App = React.createClass({
     },
 
     render() {
-        var menu = this.props.route.childRoutes.map(function (childRoute,index) {
+        var menu = this.props.route.childRoutes.map(function (childRoute, index) {
+            var active = index === 0 ? 'active' : ''
             return (
-                <a key={index} href={"#/"+childRoute.path} className="list-group-item">{childRoute.name}</a>
+                <a key={index} href={"#/"+childRoute.path} className={`list-group-item ${active}`}>
+                    {childRoute.name}
+                </a>
             )
         })
         return (
@@ -29,7 +32,7 @@ var App = React.createClass({
                 </header>
                 <section className="flex">
                     <nav>
-                        <div class="list-group">
+                        <div className="list-group">
                             {menu}
                         </div>
                     </nav>

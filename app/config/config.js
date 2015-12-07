@@ -1,1 +1,3 @@
-module.exports = require('./config_daily')
+module.exports = {
+    bucLoginUrl: 'https://login-test.alibaba-inc.com'
+}

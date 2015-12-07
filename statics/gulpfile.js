@@ -21,7 +21,7 @@ gulp.task('webpack', function (cb) {
     gulp.src('src/app.js')
         .pipe(webpack(webpackConfig))
         .pipe(gulpif(production, uglify()))
-        .pipe(rev())
+        .pipe(gulpif(production, rev()))
         .pipe(gulp.dest('dist/'))
         .pipe(rev.manifest())
         .pipe(gulp.dest('dist/'))
@@ -37,8 +37,8 @@ gulp.task('webpack', function (cb) {
 gulp.task('vendor', function (cb) {
     var unCompressJsFilter = filter('**/dist/**/*.js', {restore: true})
     gulp.src([
-            'node_modules/{react,react-dom,bootstrap,jquery}/dist/**/*.*'
-        ])
+        'node_modules/{react,react-dom,bootstrap,jquery}/dist/**/*.*'
+    ])
         .pipe(unCompressJsFilter)
         .pipe(gulpif(production, uglify()))
         .pipe(unCompressJsFilter.restore)
@@ -84,9 +84,13 @@ gulp.task('watch', function () {
     gulp.src('src/app.js')
         .pipe(webpack(webpackConfig))
         .pipe(gulp.dest('dist/'))
-    gulp.watch('dist/app.bundle.js', function (event) {
+        .on('finish', function () {
+
+        })
+    gulp.watch('dist/**/*.*', function (event) {
         livereload.changed(path.join(__dirname, event.path))
     })
+
 })
 gulp.task('default', function (cb) {
     gulpSequence('clean', 'htmls', ['webpack', 'vendor'], cb)

@@ -8,7 +8,9 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "bootstrap": "~3.3.6"
+  },
   "devDependencies": {
     "babel-core": "~6.2.4",
     "babel-loader": "~6.2.0",

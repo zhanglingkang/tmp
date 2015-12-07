@@ -1,0 +1,9 @@
+@import "compass";
+
+.flex {
+  @include display-flex(flex);
+}
+
+.flex-column {
+  @include flex-direction(column);
+}

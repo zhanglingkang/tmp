@@ -1,5 +1,9 @@
 @import "compass";
-.app-container {
+
+.flex {
   @include display-flex(flex);
-  @include flex-direction(row);
+}
+
+.flex-column {
+  @include flex-direction(column);
 }

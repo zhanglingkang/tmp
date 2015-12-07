@@ -1,5 +1,6 @@
 require('./style.scss')
 var React = require('react')
+var routes = require('../../routes')
 var App = React.createClass({
     getInitialState() {
         return {}
@@ -8,8 +9,14 @@ var App = React.createClass({
     },
 
     render() {
+        var menu = this.props.route.childRoutes.map(function (childRoute,index) {
+            return (
+                <a key={index} href={"#/"+childRoute.path} className="list-group-item">{childRoute.name}</a>
+            )
+        })
         return (
-            <div className="app-container">
+
+            <div className="app-container flex flex-column">
                 <header >
                     <a href="/" className="logo">
                         <span>BOSS</span>
@@ -20,16 +27,11 @@ var App = React.createClass({
                         <span className="logout"><a href="/logout">退出</a></span>
                     </div>
                 </header>
-                <section>
+                <section className="flex">
                     <nav>
-                        <ul className="list-group">
-                            <li className="list-group-item active">
-                                <a href="#/key">key备案</a>
-                            </li>
-                            <li className="list-group-item">
-                                <a href="#/key-privilege">key权限</a>
-                            </li>
-                        </ul>
+                        <div class="list-group">
+                            {menu}
+                        </div>
                     </nav>
                     <div className="content">
                         {this.props.children}

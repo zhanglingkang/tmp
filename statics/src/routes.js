@@ -5,8 +5,8 @@ const routes = {
     path: '/',
     component: App,
     childRoutes: [
-        {path: 'key', component: Key},
-        {path: 'key-privilege', component: KeyPrivilege}
+        {name: 'key', path: 'key', component: Key},
+        {name: 'key备案', path: 'key-privilege', component: KeyPrivilege}
     ]
 }
 module.exports = routes

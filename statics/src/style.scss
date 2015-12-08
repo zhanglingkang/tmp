@@ -7,3 +7,18 @@
 .flex-column {
   @include flex-direction(column);
 }
+
+.flex-1 {
+  @include flex(1);
+}
+
+.justify-content-between {
+  @include justify-content(space-between);
+}
+
+.align-items-center {
+  @include align-items(center);
+}
+.align-item-start{
+  @include align-items(flex-start);
+}

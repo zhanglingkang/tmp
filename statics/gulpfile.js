@@ -79,7 +79,7 @@ gulp.task('watch', function () {
         start: true
     })
     webpackConfig.watch = true
-    gulp.src('src/index.html')
+    gulp.src('src/app.html')
         .pipe(gulp.dest('dist/'))
     gulp.src('src/app.js')
         .pipe(webpack(webpackConfig))

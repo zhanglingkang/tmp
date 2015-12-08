@@ -1,9 +1,42 @@
 @import "compass";
 
-.flex {
-  @include display-flex(flex);
+#menu-nav {
+  width: 180px;
+  border-right: 1px solid #f2f2f2;
+  a {
+    display: block;
+    padding: 15px 0 15px 50px;
+    font-size: 13px;
+    border-radius: 0 !important;
+    border-right: 0;
+    border-top: 0;
+    &.active {
+      //background: #3d63ae;
+    }
+  }
 }
 
-.flex-column {
-  @include flex-direction(column);
+#app-container {
+
+  header {
+    padding: 5px 15px;
+    height: 50px;
+    @include box-shadow(0 1px 4px rgba(0, 0, 0, 0.10));
+  }
+  section {
+    margin-top: 1px;
+    .content {
+      padding: 15px;
+    }
+  }
+}
+
+.panel {
+  border-radius: 0;
+}
+
+table {
+  td,th{
+    white-space: nowrap;
+  }
 }

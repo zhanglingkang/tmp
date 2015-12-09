@@ -1,10 +1,16 @@
 var React = require('react')
+var ReactDOM = require('react-dom')
 var Panel = require('react-bootstrap/lib/Panel')
-var Table = require('react-bootstrap/lib/Table')
+var {Column, Cell} = require('fixed-data-table')
+var Table = require('../Table')
 var $ = require('jquery')
+var KeyUpdate = require('../KeyUpdate')
 var Key = React.createClass({
     getInitialState() {
-        return {}
+        return {
+            keyList: []
+        }
+
     },
 
     componentDidMount() {
@@ -15,69 +21,207 @@ var Key = React.createClass({
             })
         })
     },
+    onRowDoubleClick(event, rowIndex){
+        this.setState({
+            keyUpdate: this.state.keyList[rowIndex]
+        })
+    },
 
-    render() {
-        //var meta = [{licenseKey: {name: 'key'}}, {userId: {name: '用户id'}}]
-        var trList = []
-        if (this.state.keyList) {
-            trList = this.state.keyList.map((item, index)=> {
-                return (
-                    <tr key={index}>
-                        <td>{item.licenseKey}</td>
-                        <td>{item.userId}</td>
-                        <td>{item.roleName}</td>
-                        <td>{item.apiType}</td>
-                        <td>{item.sdkType}</td>
-                        <td>{item.createTime}</td>
-                        <td>{item.securityCode}</td>
-                        <td>{item.keyname}</td>
-                        <td>{item.keyIndustryId}</td>
-                        <td>{item.userDevname}</td>
-                        <td>{item.userType}</td>
-                        <td>{item.userMobile}</td>
-                        <td>{item.userEmail}</td>
-                        <td>{item.userWebsite}</td>
-                        <td>{item.userIntro}</td>
-                        <td>{item.keyLinkman}</td>
-                        <td>{item.keyMobile}</td>
-                    </tr>
-                )
-            })
+    render(){
+        var keyUpdate
+        if (this.state.keyUpdate) {
+            keyUpdate = (<KeyUpdate keyItem={this.state.keyUpdate} show={true}/>)
         }
         return (
             <div>
                 <section>
                 </section>
                 <section>
-                    <Panel header="key备案信息管理" bsClass="">
-                        <Table responsive>
-                            <thead>
-                            <tr>
-                                <th>key</th>
-                                <th>用户id</th>
-                                <th>角色</th>
-                                <th>平台</th>
-                                <th>SDK类型</th>
-                                <th>key注册日期</th>
-                                <th>包名</th>
-                                <th>key简介</th>
-                                <th>行业类型</th>
-                                <th>开发者姓名</th>
-                                <th>开发者类型</th>
-                                <th>开发者手机</th>
-                                <th>开发者邮箱</th>
-                                <th>开发者网站</th>
-                                <th>开发者简介</th>
-                                <th>key联系人</th>
-                                <th>key联系人手机</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {trList}
-                            </tbody>
+                    <Panel header="key备案信息管理">
+                        <Table
+                            rowsCount={this.state.keyList.length}
+                            rowHeight={50}
+                            height={600}
+                            onRowDoubleClick={this.onRowDoubleClick}
+                            headerHeight={50}>
+                            <Column
+                                header={<Cell>key</Cell>}
+                                fixed={true}
+                                //isResizable={true}
+                                cell={props => (
+                                             <Cell {...props}>
+                                                  {this.state.keyList[props.rowIndex].licenseKey}
+                                               </Cell>
+                                          )}
+                                width={280}
+                                >
+                            </Column>
+                            <Column
+                                header={<Cell>用户id</Cell>}
+                                cell={props => (
+                                             <Cell {...props}>
+                                                  {this.state.keyList[props.rowIndex].userId}
+                                               </Cell>
+                                          )}
+                                width={200}
+                                >
+                            </Column>
+                            <Column
+                                header={<Cell>角色</Cell>}
+                                cell={props => (
+                                             <Cell {...props}>
+                                                  {this.state.keyList[props.rowIndex].rowName}
+                                               </Cell>
+                                          )}
+                                width={200}
+                                >
+                            </Column>
+                            <Column
+                                header={<Cell>平台</Cell>}
+                                cell={props => (
+                                             <Cell {...props}>
+                                                  {this.state.keyList[props.rowIndex].apiType}
+                                               </Cell>
+                                          )}
+                                width={200}
+                                >
+                            </Column>
+                            <Column
+                                header={<Cell>SDK类型</Cell>}
+                                cell={props => (
+                                             <Cell {...props}>
+                                                  {this.state.keyList[props.rowIndex].sdkType}
+                                               </Cell>
+                                          )}
+                                width={200}
+                                >
+                            </Column>
+                            <Column
+                                header={<Cell>key注册日期</Cell>}
+                                cell={props => (
+                                             <Cell {...props}>
+                                                  {this.state.keyList[props.rowIndex].createTime}
+                                               </Cell>
+                                          )}
+                                width={200}
+                                >
+                            </Column>
+                            <Column
+                                header={<Cell>包名</Cell>}
+                                cell={props => (
+                                             <Cell {...props}>
+                                                  {this.state.keyList[props.rowIndex].securityCode}
+                                               </Cell>
+                                          )}
+                                width={200}
+                                >
+                            </Column>
+                            <Column
+                                header={<Cell>key简介</Cell>}
+                                cell={props => (
+                                             <Cell {...props}>
+                                                  {this.state.keyList[props.rowIndex].keyname}
+                                               </Cell>
+                                          )}
+                                width={200}
+                                >
+                            </Column>
+                            <Column
+                                header={<Cell>行业类型</Cell>}
+                                cell={props => (
+                                             <Cell {...props}>
+                                                  {this.state.keyList[props.rowIndex].keyIndustryId}
+                                               </Cell>
+                                          )}
+                                width={200}
+                                >
+                            </Column>
+                            <Column
+                                header={<Cell>开发者姓名</Cell>}
+                                cell={props => (
+                                             <Cell {...props}>
+                                                  {this.state.keyList[props.rowIndex].userDevname}
+                                               </Cell>
+                                          )}
+                                width={200}
+                                >
+                            </Column>
+                            <Column
+                                header={<Cell>开发者类型</Cell>}
+                                cell={props => (
+                                             <Cell {...props}>
+                                                  {this.state.keyList[props.rowIndex].userType}
+                                               </Cell>
+                                          )}
+                                width={200}
+                                >
+                            </Column>
+                            <Column
+                                header={<Cell>开发者手机</Cell>}
+                                cell={props => (
+                                             <Cell {...props}>
+                                                  {this.state.keyList[props.rowIndex].userMobile}
+                                               </Cell>
+                                          )}
+                                width={200}
+                                >
+                            </Column>
+                            <Column
+                                header={<Cell>开发者邮箱</Cell>}
+                                cell={props => (
+                                             <Cell {...props}>
+                                                  {this.state.keyList[props.rowIndex].userEmail}
+                                               </Cell>
+                                          )}
+                                width={200}
+                                >
+                            </Column>
+                            <Column
+                                header={<Cell>开发者网站</Cell>}
+                                cell={props => (
+                                             <Cell {...props}>
+                                                  {this.state.keyList[props.rowIndex].userWebsite}
+                                               </Cell>
+                                          )}
+                                width={200}
+                                >
+                            </Column>
+                            <Column
+                                header={<Cell>开发者简介</Cell>}
+                                cell={props => (
+                                             <Cell {...props}>
+                                                  {this.state.keyList[props.rowIndex].userIntro}
+                                               </Cell>
+                                          )}
+                                width={200}
+                                >
+                            </Column>
+                            <Column
+                                header={<Cell>key联系人</Cell>}
+                                cell={props => (
+                                             <Cell {...props}>
+                                                  {this.state.keyList[props.rowIndex].keyLinkman}
+                                               </Cell>
+                                          )}
+                                width={200}
+                                >
+                            </Column>
+                            <Column
+                                header={<Cell>key联系人手机</Cell>}
+                                cell={props => (
+                                             <Cell {...props}>
+                                                  {this.state.keyList[props.rowIndex].keyMobile}
+                                               </Cell>
+                                          )}
+                                width={200}
+                                >
+                            </Column>
                         </Table>
                     </Panel>
                 </section>
+                <section>
+                </section>
+                {keyUpdate}
             </div>
         )
     }

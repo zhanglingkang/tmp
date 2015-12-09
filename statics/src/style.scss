@@ -19,6 +19,11 @@
 .align-items-center {
   @include align-items(center);
 }
-.align-item-start{
+
+.align-item-start {
   @include align-items(flex-start);
+}
+
+.flex-wrap-wrap {
+  @include flex-wrap(wrap);
 }

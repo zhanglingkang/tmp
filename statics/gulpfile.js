@@ -37,7 +37,7 @@ gulp.task('webpack', function (cb) {
 gulp.task('vendor', function (cb) {
     var unCompressJsFilter = filter('**/dist/**/*.js', {restore: true})
     gulp.src([
-        'node_modules/{react,react-dom,bootstrap,jquery}/dist/**/*.*'
+        'node_modules/{react,react-dom,bootstrap,jquery,fixed-data-table}/dist/**/*.*'
     ])
         .pipe(unCompressJsFilter)
         .pipe(gulpif(production, uglify()))

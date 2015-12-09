@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "fixed-data-table": "~0.6.0",
+    "react-addons-linked-state-mixin": "~0.14.3"
   },
   "devDependencies": {
     "babel-core": "~6.2.4",

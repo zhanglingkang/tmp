@@ -43,7 +43,7 @@ var App = React.createClass({
                             {menu}
                         </div>
                     </nav>
-                    <div className="content flex-1">
+                    <div id="content" className="content flex-1">
                         {this.props.children}
                     </div>
                 </section>

@@ -7,7 +7,6 @@
     display: block;
     padding: 15px 0 15px 50px;
     font-size: 13px;
-    border-radius: 0 !important;
     border-right: 0;
     border-top: 0;
     &.active {
@@ -31,12 +30,16 @@
   }
 }
 
-.panel {
-  border-radius: 0;
+.panel, .modal-content, a, input {
+  border-radius: 0 !important;
+}
+
+form .input-container {
+  margin-right: 15px;
 }
 
 table {
-  td,th{
+  td, th {
     white-space: nowrap;
   }
 }

@@ -45,9 +45,15 @@
   label {
     margin-right: 15px;
   }
-  input {
+  input.basic {
     display: inline-block;
     width: initial;
+  }
+  .input-group {
+    max-width: 200px;
+  }
+  .form-control {
+    height: 36px;
   }
 }
 

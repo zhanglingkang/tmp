@@ -6,7 +6,9 @@ var Table = require('../Table')
 var $ = require('jquery')
 var KeyUpdate = require('../KeyUpdate')
 var Select = require('../Select')
-var {DateTimeInput} = require('amazeui-react')
+//var {DateTimeInput} = require('amazeui-react')
+var DateTimeField = require('react-bootstrap-datetimepicker')
+//require('../../lib/bootstrap-datetimepicker.zh-CN.js')
 var Key = React.createClass({
     getInitialState() {
         return {
@@ -161,6 +163,7 @@ var Key = React.createClass({
             {text: 'IOS SDK', value: '5'},
             {text: 'windowsphoneSDK', value: '6'}
         ]
+
         return (
             <div>
                 <section className="search-form">
@@ -172,12 +175,11 @@ var Key = React.createClass({
                     </div>
                     <div>
                         <label>模糊查询</label>
-                        <input type="text" className="form-control"/>
+                        <input type="text" className="form-control basic"/>
                     </div>
-                    <div>
+                    <div className="flex align-items-center">
                         <label>时间</label>
-
-                        <div className="inline-block"><DateTimeInput amStyle="warning"/></div>
+                        <div className="inline-block relative"><DateTimeField locale="zh-cn" /></div>
                     </div>
                 </section>
                 <section>
@@ -198,7 +200,7 @@ var Key = React.createClass({
                                                </Cell>
                                           )}
                             width={280}
-                            >
+                        >
                         </Column>
                         <Column
                             header={<Cell>用户id</Cell>}
@@ -208,7 +210,7 @@ var Key = React.createClass({
                                                </Cell>
                                           )}
                             width={200}
-                            >
+                        >
                         </Column>
                         <Column
                             header={<Cell>角色</Cell>}
@@ -218,7 +220,7 @@ var Key = React.createClass({
                                                </Cell>
                                           )}
                             width={200}
-                            >
+                        >
                         </Column>
                         <Column
                             header={<Cell>平台</Cell>}
@@ -228,7 +230,7 @@ var Key = React.createClass({
                                                </Cell>
                                           )}
                             width={200}
-                            >
+                        >
                         </Column>
                         <Column
                             header={<Cell>SDK类型</Cell>}
@@ -238,7 +240,7 @@ var Key = React.createClass({
                                                </Cell>
                                           )}
                             width={200}
-                            >
+                        >
                         </Column>
                         <Column
                             header={<Cell>key注册日期</Cell>}
@@ -248,7 +250,7 @@ var Key = React.createClass({
                                                </Cell>
                                           )}
                             width={200}
-                            >
+                        >
                         </Column>
                         <Column
                             header={<Cell>包名</Cell>}
@@ -258,7 +260,7 @@ var Key = React.createClass({
                                                </Cell>
                                           )}
                             width={200}
-                            >
+                        >
                         </Column>
                         <Column
                             header={<Cell>key简介</Cell>}
@@ -268,7 +270,7 @@ var Key = React.createClass({
                                                </Cell>
                                           )}
                             width={200}
-                            >
+                        >
                         </Column>
                         <Column
                             header={<Cell>行业类型</Cell>}
@@ -278,7 +280,7 @@ var Key = React.createClass({
                                                </Cell>
                                           )}
                             width={200}
-                            >
+                        >
                         </Column>
                         <Column
                             header={<Cell>开发者姓名</Cell>}
@@ -288,7 +290,7 @@ var Key = React.createClass({
                                                </Cell>
                                           )}
                             width={200}
-                            >
+                        >
                         </Column>
                         <Column
                             header={<Cell>开发者类型</Cell>}
@@ -298,7 +300,7 @@ var Key = React.createClass({
                                                </Cell>
                                           )}
                             width={200}
-                            >
+                        >
                         </Column>
                         <Column
                             header={<Cell>开发者手机</Cell>}
@@ -308,7 +310,7 @@ var Key = React.createClass({
                                                </Cell>
                                           )}
                             width={200}
-                            >
+                        >
                         </Column>
                         <Column
                             header={<Cell>开发者邮箱</Cell>}
@@ -318,7 +320,7 @@ var Key = React.createClass({
                                                </Cell>
                                           )}
                             width={200}
-                            >
+                        >
                         </Column>
                         <Column
                             header={<Cell>开发者网站</Cell>}
@@ -328,7 +330,7 @@ var Key = React.createClass({
                                                </Cell>
                                           )}
                             width={200}
-                            >
+                        >
                         </Column>
                         <Column
                             header={<Cell>开发者简介</Cell>}
@@ -338,7 +340,7 @@ var Key = React.createClass({
                                                </Cell>
                                           )}
                             width={200}
-                            >
+                        >
                         </Column>
                         <Column
                             header={<Cell>key联系人</Cell>}
@@ -348,7 +350,7 @@ var Key = React.createClass({
                                                </Cell>
                                           )}
                             width={200}
-                            >
+                        >
                         </Column>
                         <Column
                             header={<Cell>key联系人手机</Cell>}
@@ -358,7 +360,7 @@ var Key = React.createClass({
                                                </Cell>
                                           )}
                             width={200}
-                            >
+                        >
                         </Column>
                     </Table>
                     {/*</Panel>*/}

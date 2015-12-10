@@ -37,8 +37,11 @@ gulp.task('webpack', function (cb) {
 gulp.task('vendor', function (cb) {
     var unCompressJsFilter = filter('**/dist/**/*.js', {restore: true})
     gulp.src([
-        'node_modules/{react,react-dom,bootstrap,jquery,fixed-data-table}/dist/**/*.*'
-    ])
+        'node_modules/{react,react-dom,bootstrap,jquery,fixed-data-table}/dist/**/*.*',
+        'node_modules/react-bootstrap-datetimepicker/css/**/*.*'
+    ],{
+        base:'node_modules'
+    })
         .pipe(unCompressJsFilter)
         .pipe(gulpif(production, uglify()))
         .pipe(unCompressJsFilter.restore)

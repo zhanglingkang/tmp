@@ -1,0 +1,49 @@
+@import "compass";
+
+.select {
+  display: inline-block;
+  min-width: 160px;
+  .dropdown {
+    .input-group, .dropdown-menu-container {
+      display: none;
+    }
+    &.open {
+      .input-group {
+        display: block;
+        margin-right: -1px;
+        border: 0;
+        input {
+          border: 0;
+          border-bottom: 1px solid #adadad;
+          &:focus {
+            @include box-shadow(none);
+          }
+        }
+      }
+      .dropdown-menu-container {
+        display: block;
+      }
+      .dropdown-menu {
+        position: static;
+        float: none;
+        display: block;
+        border: 0;
+        min-width: initial;
+        margin-right: -1px;
+        margin-top: 0;
+      }
+      .dropdown-toggle {
+        border-bottom: 0;
+      }
+    }
+    .dropdown-menu-container {
+      position: absolute;
+      border: 1px solid #adadad;
+      border-right: 2px solid #adadad;
+      top: 100%;
+      left: 0;
+      z-index: 1000;
+      right: 0;
+    }
+  }
+}

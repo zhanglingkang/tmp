@@ -8,6 +8,11 @@
   @include flex-direction(column);
 }
 
+.flex-row-reverse {
+  @include flex-direction(row-reverse);
+
+}
+
 .flex-1 {
   @include flex(1);
 }
@@ -26,4 +31,8 @@
 
 .flex-wrap-wrap {
   @include flex-wrap(wrap);
+}
+
+.inline-block {
+  display: inline-block;
 }

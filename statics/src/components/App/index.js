@@ -24,12 +24,14 @@ var App = React.createClass({
                 </a>
             )
         })
+        //<img src={logo}></img>
+
         return (
 
             <div id="app-container" className="flex flex-column" style={{height:'100vh'}}>
                 <header className="flex justify-content-between align-items-center">
-                    <a href="/" className="logo">
-                        <img src={logo}></img>
+                    <a href="/" className="logo" style={{fontSize:"30px",color:"#3D62AD",fontStyle:"italic"}}>
+                        BOSS
                     </a>
 
                     <div>

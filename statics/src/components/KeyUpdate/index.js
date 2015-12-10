@@ -13,11 +13,19 @@ var KeyUpdate = React.createClass({
 
     componentDidMount() {
     },
-
+    submit(){
+        var {show,...form}=this.state
+        $.post('/f/api/records/' + form.licenseKey, form).then(function () {
+            debugger
+        })
+    },
     close(){
         this.setState({
             show: false
         })
+        if (this.props.onHide) {
+            this.props.onHide()
+        }
     },
     componentWillReceiveProps(props){
         //console.count('xx')
@@ -199,7 +207,7 @@ var KeyUpdate = React.createClass({
                             </div>
                         </div>
                     </div>
-                    <button type="submit" className="btn btn-default">提交</button>
+                    <button onClick={this.submit} className="btn btn-success">提交</button>
                 </form>
             </Modal.Body>
             <Modal.Footer>

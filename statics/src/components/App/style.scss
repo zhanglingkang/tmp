@@ -30,8 +30,25 @@
   }
 }
 
-.panel, .modal-content, a, input {
+.panel, .modal-content, a, input, .btn, .dropdown-menu {
   border-radius: 0 !important;
+}
+
+.search-form {
+  @include display-flex(flex);
+  @include flex-wrap(wrap);
+  margin-bottom: 15px;
+  > div {
+    margin-right: 15px;
+    margin-bottom: 15px;
+  }
+  label {
+    margin-right: 15px;
+  }
+  input {
+    display: inline-block;
+    width: initial;
+  }
 }
 
 form .input-container {

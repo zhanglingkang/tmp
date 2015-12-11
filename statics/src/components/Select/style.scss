@@ -3,14 +3,18 @@
 .select {
   display: inline-block;
   min-width: 160px;
+  max-width: 200px;
   .dropdown {
+    .dropdown-toggle span {
+      overflow-x: hidden;
+
+    }
     .input-group, .dropdown-menu-container {
       display: none;
     }
     &.open {
       .input-group {
         display: block;
-        margin-right: -1px;
         border: 0;
         input {
           border: 0;
@@ -24,13 +28,19 @@
         display: block;
       }
       .dropdown-menu {
+        @include box-shadow(none);
         position: static;
+        margin-bottom: -5px;
         float: none;
-        display: block;
+        display: inline-block;
+        max-height: 240px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        width: 100%;
         border: 0;
         min-width: initial;
-        margin-right: -1px;
         margin-top: 0;
+
       }
       .dropdown-toggle {
         border-bottom: 0;
@@ -39,7 +49,6 @@
     .dropdown-menu-container {
       position: absolute;
       border: 1px solid #adadad;
-      border-right: 2px solid #adadad;
       top: 100%;
       left: 0;
       z-index: 1000;

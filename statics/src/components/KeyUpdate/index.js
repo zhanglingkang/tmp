@@ -1,6 +1,8 @@
 var React = require('react')
 var Modal = require('react-bootstrap/lib/Modal')
 var LinkedStateMixin = require('react-addons-linked-state-mixin')
+var Select = require('../Select')
+var {industryList,platFormList,sdkTypeList}=require('../../models/dict')
 var KeyUpdate = React.createClass({
     mixins: [LinkedStateMixin],
     getInitialState() {
@@ -13,7 +15,8 @@ var KeyUpdate = React.createClass({
 
     componentDidMount() {
     },
-    submit(){
+    submit(event){
+        event.preventDefault()
         var {show,...form}=this.state
         $.post('/f/api/records/' + form.licenseKey, form).then(function () {
             debugger
@@ -129,9 +132,11 @@ var KeyUpdate = React.createClass({
                         <div className="input-container">
                             <div className="form-group">
                                 <label>行业类型</label>
-                                <input type="text" className="form-control"
-                                       valueLink={this.linkState('keyIndustryId')}
-                                    />
+
+                                <div>
+                                    <Select optionsList={industryList} value={this.state.keyIndustryId}
+                                            onChange={(newValue)=>{this.state.keyIndustryId=newValue}}/>
+                                </div>
 
                             </div>
                         </div>

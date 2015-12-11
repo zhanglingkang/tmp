@@ -30,7 +30,7 @@
   }
 }
 
-.panel, .modal-content, a, input, .btn, .dropdown-menu {
+.panel, .modal-content, a, input, .btn, .dropdown-menu,.input-group-addon {
   border-radius: 0 !important;
 }
 
@@ -49,7 +49,7 @@
     display: inline-block;
     width: initial;
   }
-  .input-group {
+  .input-group.date {
     max-width: 200px;
   }
   .form-control {

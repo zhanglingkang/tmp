@@ -9,11 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@alife/react-bootstrap-datetimepicker": "0.0.20",
     "amazeui-react": "~1.0.0-beta2",
     "fixed-data-table": "~0.6.0",
-    "react-addons-linked-state-mixin": "~0.14.3",
-    "react-bootstrap-datetimepicker": "iam4x/react-bootstrap-datetimepicker#master",
-    "react-datetimepicker-bootstrap": "~0.4.1"
+    "react-addons-linked-state-mixin": "~0.14.3"
   },
   "devDependencies": {
     "babel-core": "~6.2.4",

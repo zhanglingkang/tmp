@@ -14,6 +14,13 @@ var Select = React.createClass({
 
             }
         },
+        componentWillReceiveProps(props){
+            if (props.value) {
+                this.setState({
+                    option: this.props.optionsList.getOption(props.value)
+                })
+            }
+        },
         componentDidMount()
         {
 
@@ -140,8 +147,7 @@ var Select = React.createClass({
             return (
                 <div ref="root" className="select">
                     <div className={`dropdown flex flex-column ${this.state.open}`}
-                         onKeyDown={this.onKeyDown}
-                        >
+                         onKeyDown={this.onKeyDown}>
                         <button
                             className="btn btn-default dropdown-toggle align-items-center flex flex-center justify-content-between"
                             type="button"

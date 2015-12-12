@@ -4,6 +4,7 @@ var {Table, Column, Cell} = require('fixed-data-table')
 var $ = require('jquery')
 var SelfAdaptionTable = React.createClass({
     getInitialState() {
+        this.pageSectionHeight = 80
         return {
             width: this.props.width || 0,
             height: this.props.height || 0
@@ -12,11 +13,14 @@ var SelfAdaptionTable = React.createClass({
     updateWidthAndHeight(){
         var container = ReactDOM.findDOMNode(this.refs.container)
         var state = {}
-        if (!this.state.width) {
-            state.width = $(container).width()
+        if (!this.props.width && !this.state.width) {
+            state.width = parseInt(getComputedStyle(container).width)
         }
-        if (!this.state.height) {
-            state.height = this.props.rowsCount * this.props.rowHeight
+        if (!this.props.height && !this.state.height) {
+            state.height = parseInt(getComputedStyle(container.parentElement).height)
+            if (!state.height || state.height <= 0) {
+                console.warn('请传递height或者包含Table的父元素的height不小于200')
+            }
         }
         if (state.width || state.height) {
             this.setState(state)
@@ -24,7 +28,19 @@ var SelfAdaptionTable = React.createClass({
     },
     componentDidMount() {
         this.updateWidthAndHeight()
+        if (!this.props.width || !this.props.height) {
+            $(window).on('resize', this.resize)
+        }
 
+    },
+    componentWillUnmount(){
+        $(window).off('resize', this.resize)
+    },
+    resize(){
+        this.setState({
+            width: 0,
+            height: 0
+        })
     },
     componentDidUpdate(){
         this.updateWidthAndHeight()
@@ -38,7 +54,6 @@ var SelfAdaptionTable = React.createClass({
         }))
     },
     isNeedPage(){
-
         return this.props.page && this.props.total && this.props.pageSize
     },
     toPage(page){
@@ -139,15 +154,23 @@ var SelfAdaptionTable = React.createClass({
         return liList
     },
 
+    getWidthAndHeight(){
+        return {
+            width: this.props.width || this.state.width || 0,
+            height: (this.props.height || this.state.height || 0) - this.pageSectionHeight
+        }
+    },
+
     render() {
         var table
-        if (this.state.width && this.state.height) {
+        var {height,width}=this.getWidthAndHeight()
+        if (width > 0 && height > 0) {
             table = (
                 <Table {...this.props}
                     onColumnResizeEndCallback={this._onColumnResizeEndCallback}
-                    width={this.state.width}
-                    height={this.state.height}
-                    >
+                    width={width}
+                    height={height}
+                >
                     {this.props.children}
                 </Table>
             )
@@ -155,7 +178,8 @@ var SelfAdaptionTable = React.createClass({
         var pageSection
         if (this.isNeedPage()) {
             pageSection = (
-                <section className="flex flex-row-reverse" style={{padding:"0 15px"}}>
+                <section className="flex flex-row-reverse"
+                         style={{padding:"0 15px",height:this.pageSectionHeight,maxHeight:this.pageSectionHeight}}>
                     <nav>
                         <ul className="pagination">
                             {this.getPageLiList()}

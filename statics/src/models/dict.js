@@ -44,9 +44,13 @@ var sdkTypeList = [
     {text: 'IOS', value: '2'},
     {text: 'WindowsPhone', value: '3'},
 ]
+var userTypeList = [
+    {text: '个人', value: 'developer'},
+    {text: '公司', value: 'enterprise'}
+]
 var methods = {
     getText(value){
-        this.getOption(value).text
+        return this.getOption(value).text
     },
     getOption(value){
         var result = {}
@@ -73,8 +77,10 @@ methods.__proto__ = Array.prototype
 industryList.__proto__ = methods
 platFormList.__proto__ = methods
 sdkTypeList.__proto__ = methods
+userTypeList.__proto__ = methods
 module.exports = {
     industryList,
     platFormList,
-    sdkTypeList
+    sdkTypeList,
+    userTypeList
 }

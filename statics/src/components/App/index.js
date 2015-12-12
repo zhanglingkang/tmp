@@ -1,7 +1,6 @@
 require('./style.scss')
 var React = require('react')
 var routes = require('../../routes')
-var logo = require('./logo.png')
 var App = React.createClass({
     getInitialState() {
         return {}
@@ -45,7 +44,7 @@ var App = React.createClass({
                             {menu}
                         </div>
                     </nav>
-                    <div id="content" className="content flex-1">
+                    <div id="content" className="content flex  flex-1">
                         {this.props.children}
                     </div>
                 </section>

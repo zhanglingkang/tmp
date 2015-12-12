@@ -8,6 +8,8 @@ var KeyUpdate = require('../KeyUpdate')
 var Select = require('../Select')
 var DateTimeField = require('@alife/react-bootstrap-datetimepicker')
 var {industryList,platFormList,sdkTypeList}=require('../../models/dict')
+var moment = require('moment')
+var keyService = require('../../models/keyService')
 var Key = React.createClass({
     getInitialState() {
         return {
@@ -23,23 +25,29 @@ var Key = React.createClass({
 
     componentDidMount() {
         this.search()
+        var height = parseInt(getComputedStyle(this.refs.tableContainer).height)
+        this.setState({height})
 
     },
     onRowDoubleClick(event, rowIndex){
         this.setState({
-            keyUpdate: this.state.keyList[rowIndex],
+            licenseKey: this.state.keyList[rowIndex].licenseKey,
             showKeyUpdate: true
         })
     },
     search(searchForm){
         searchForm = searchForm || this.state.searchForm
-        $.get('/f/api/records', searchForm).then((data)=> {
+        keyService.getKeyList(searchForm).then((result)=> {
+            var {keyList,total}=result
             this.setState({
-                keyList: data.rows,
-                total: data.total,
-                totalPage: (data.total + searchForm.rows - 1) / searchForm.rows
+                keyList,
+                total,
+                totalPage: (total + searchForm.rows - 1) / searchForm.rows
             })
         })
+    },
+    onUpdateSuccess(){
+        this.search()
     },
     toPage(page){
         var {...searchForm}=this.state.searchForm
@@ -54,22 +62,27 @@ var Key = React.createClass({
     },
     render(){
         var keyUpdate
-        if (this.state.keyUpdate) {
-            keyUpdate = (<KeyUpdate keyItem={this.state.keyUpdate} show={this.state.showKeyUpdate}
-                                    onHide={()=>this.setState({showKeyUpdate:false})}/>)
+        if (this.state.showKeyUpdate) {
+            keyUpdate = (
+                <KeyUpdate licenseKey={this.state.licenseKey}
+                           show={this.state.showKeyUpdate}
+                           onUpdateSuccess={this.state.onUpdateSuccess}
+                           onHide={()=>this.setState({showKeyUpdate:false})}
+                />
+            )
         }
         return (
-            <div>
+            <div className="flex flex-column">
                 <section className="search-form">
                     <div>
-                        <label>行业过滤条件</label>
+                        <label>行业过滤</label>
                         <Select
                             onChange={(newValue)=>{this.state.searchForm.indid=newValue}}
                             optionsList={industryList}>
                         </Select>
                     </div>
                     <div>
-                        <label>平台过滤条件</label>
+                        <label>平台过滤</label>
                         <Select
                             onChange={(newValue)=>{this.state.searchForm.pf=newValue}}
                             optionsList={platFormList}>
@@ -94,7 +107,7 @@ var Key = React.createClass({
                         <button type="submit" className="btn btn-info" onClick={()=>{this.search()}}>查询</button>
                     </div>
                 </section>
-                <section>
+                <section className="flex-1" ref="tableContainer">
                     <Table
                         total={this.state.total}
                         page={this.state.searchForm.page}
@@ -102,7 +115,6 @@ var Key = React.createClass({
                         toPage={this.toPage}
                         rowsCount={this.state.keyList.length}
                         rowHeight={50}
-                        height={600}
                         onRowDoubleClick={this.onRowDoubleClick}
                         headerHeight={40}>
                         <Column
@@ -161,7 +173,7 @@ var Key = React.createClass({
                             header={<Cell>key注册日期</Cell>}
                             cell={props => (
                                              <Cell {...props}>
-                                                  {this.state.keyList[props.rowIndex].createTime}
+                                                  {moment.unix(this.state.keyList[props.rowIndex].createTime).format('YYYY-MM-DD HH:mm')}
                                                </Cell>
                                           )}
                             width={200}

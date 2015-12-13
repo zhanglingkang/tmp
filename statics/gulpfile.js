@@ -12,6 +12,7 @@ var gulpif = require('gulp-if')
 var rev = require('gulp-rev')
 var revCollector = require('gulp-rev-collector')
 var gulpSequence = require('gulp-sequence').use(gulp)
+var replace = require('gulp-replace')
 var webpackConfig = require('./webpack.config')
 var production = false
 if (argv.p) {
@@ -26,7 +27,7 @@ gulp.task('webpack', function (cb) {
         .pipe(rev.manifest())
         .pipe(gulp.dest('dist/'))
         .on('finish', function () {
-            gulp.src(['dist/**/*.json', 'dist/index.html'])
+            gulp.src(['dist/**/*.json', 'dist/app.html'])
                 .pipe(revCollector({
                     replaceReved: true
                 }))
@@ -37,11 +38,11 @@ gulp.task('webpack', function (cb) {
 gulp.task('vendor', function (cb) {
     var unCompressJsFilter = filter('**/dist/**/*.js', {restore: true})
     gulp.src([
-        'node_modules/{react,react-dom,bootstrap,jquery,fixed-data-table}/dist/**/*.*',
-        'node_modules/react-bootstrap-datetimepicker/css/**/*.*'
-    ],{
-        base:'node_modules'
-    })
+            'node_modules/{react,react-dom,bootstrap,jquery,fixed-data-table}/dist/**/*.*',
+            'node_modules/react-bootstrap-datetimepicker/css/**/*.*'
+        ], {
+            base: 'node_modules'
+        })
         .pipe(unCompressJsFilter)
         .pipe(gulpif(production, uglify()))
         .pipe(unCompressJsFilter.restore)
@@ -55,6 +56,9 @@ gulp.task('htmls', function (cb) {
             minifyJS: true,
             minifyCSS: true
         })))
+        .pipe(gulpif(production, replace(/\.min(?=\.(js|css))/g, '')))
+        .pipe(gulpif(production, replace(/(dist\/[^">]+)\.js/g, '$1.min.js')))
+        .pipe(gulpif(production, replace(/(<link[^>]+)\.css/g, '$1.min.css')))
         .pipe(gulp.dest('dist'))
         .on('finish', cb)
 })
@@ -90,13 +94,16 @@ gulp.task('watch', function () {
         .on('finish', function () {
 
         })
+    gulp.watch('src/**/*.html', function () {
+        gulp.run('htmls')
+    })
     gulp.watch('dist/**/*.*', function (event) {
         livereload.changed(path.join(__dirname, event.path))
     })
 
 })
 gulp.task('default', function (cb) {
-    gulpSequence('clean', 'htmls', ['webpack', 'vendor'], cb)
+    gulpSequence('clean', 'htmls', 'webpack', ['vendor'], cb)
 })
 gulp.task('help', function (cb) {
     console.log('gulp:执行构建(开发环境)')

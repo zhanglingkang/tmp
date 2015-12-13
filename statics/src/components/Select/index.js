@@ -21,23 +21,29 @@ var Select = React.createClass({
                 })
             }
         },
-        componentDidMount()
-        {
+        componentDidMount(){
 
         },
-        listenOutsideClick(event)
-        {
+        outSideClickHandle(event){
             if (!$.contains(this.refs.root, event.target)) {
                 this.setState({
                     open: ''
                 })
             }
         },
-        componentDidUpdate()
-        {
+        removeOutsideClickListener(){
+            this.addedOutsideClickListener = false
+            $(document).off('click', this.outSideClickHandle)
         },
-        changeOption(option)
-        {
+        addOutsideClickListener() {
+            if (!this.addedOutsideClickListener) {
+                this.addedOutsideClickListener = true
+                $(document).on('click', this.outSideClickHandle)
+            }
+        },
+        componentDidUpdate(){
+        },
+        changeOption(option){
             if (this.state.option !== option) {
                 this.setState({
                     option: option
@@ -47,15 +53,13 @@ var Select = React.createClass({
                 }
             }
         },
-        selectOption(option)
-        {
+        selectOption(option){
             this.changeOption(option)
             this.setState({
                 open: ''
             })
         },
-        filter(event)
-        {
+        filter(event){
             this.setState({
                 filterValue: event.target.value
             })
@@ -76,7 +80,8 @@ var Select = React.createClass({
                 return reg.test(option.text)
 
             })
-        },
+        }
+        ,
         onKeyDown(event)
         {
             if (!this.state.open) {
@@ -116,19 +121,14 @@ var Select = React.createClass({
         render()
         {
             if (this.state.open) {
-                $(document).on('click', this.listenOutsideClick)
+                this.addOutsideClickListener()
                 setTimeout(()=> {
                     this.refs.input.focus()
                 })
             } else {
-                setTimeout(()=> {
-                        this.setState({
-                            filterValue: '',
-                            position: ''
-                        })
-                    }
-                )
-                $(document).off('click', this.listenOutsideClick)
+                this.state.filterValue = ''
+                this.state.position = ''
+                this.removeOutsideClickListener()
             }
             var filteredList = this.getFilteredList()
             var liList = (

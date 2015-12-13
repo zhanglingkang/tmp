@@ -33,9 +33,14 @@
   @include flex-wrap(wrap);
 }
 
+.flex-100 {
+  @include flex(100%);
+}
+
 .inline-block {
   display: inline-block;
 }
-.relative{
+
+.relative {
   position: relative;
 }

@@ -84,6 +84,9 @@ var Select = React.createClass({
             }
             var position = this.state.position
             var filteredList = this.getFilteredList()
+            if (!filteredList || filteredList.length === 0) {
+                return
+            }
             if (event.key === 'ArrowDown') {
                 if (!$.isNumeric(position)) {
                     position = -1
@@ -144,8 +147,22 @@ var Select = React.createClass({
                     )
                 })
             }
+            var input
+            if (this.props.optionsList.length > 6) {
+                input = (
+                    <div className="input-group">
+                        <input ref="input" type="text" value={this.state.filterValue} onInput={this.filter}
+                               className="form-control"
+                               placeholder="Search for..."></input>
+                    </div>
+                )
+            }
+            var style = {}
+            if (this.props.width) {
+                style.width = this.props.width
+            }
             return (
-                <div ref="root" className="select">
+                <div ref="root" className="select" style={style}>
                     <div className={`dropdown flex flex-column ${this.state.open}`}
                          onKeyDown={this.onKeyDown}>
                         <button
@@ -161,11 +178,7 @@ var Select = React.createClass({
                             <span className="caret"></span>
                         </button>
                         <div className="dropdown-menu-container">
-                            <div className="input-group">
-                                <input ref="input" type="text" value={this.state.filterValue} onInput={this.filter}
-                                       className="form-control"
-                                       placeholder="Search for..."></input>
-                            </div>
+                            {input}
                             <ul className="dropdown-menu" style={{right:'0'}}>
                                 {
                                     liList

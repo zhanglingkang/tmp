@@ -46,7 +46,7 @@ var sdkTypeList = [
 ]
 var userTypeList = [
     {text: '个人', value: 'developer'},
-    {text: '公司', value: 'enterprise'}
+    {text: '企业', value: 'enterprise'}
 ]
 var methods = {
     getText(value){

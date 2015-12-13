@@ -7,7 +7,7 @@ var $ = require('jquery')
 var KeyUpdate = require('../KeyUpdate')
 var Select = require('../Select')
 var DateTimeField = require('@alife/react-bootstrap-datetimepicker')
-var {industryList,platFormList,sdkTypeList}=require('../../models/dict')
+var {industryList,platFormList,sdkTypeList,userTypeList}=require('../../models/dict')
 var moment = require('moment')
 var keyService = require('../../models/keyService')
 var Key = React.createClass({
@@ -66,7 +66,7 @@ var Key = React.createClass({
             keyUpdate = (
                 <KeyUpdate licenseKey={this.state.licenseKey}
                            show={this.state.showKeyUpdate}
-                           onUpdateSuccess={this.state.onUpdateSuccess}
+                           onUpdateSuccess={this.onUpdateSuccess}
                            onHide={()=>this.setState({showKeyUpdate:false})}
                 />
             )
@@ -223,7 +223,7 @@ var Key = React.createClass({
                             header={<Cell>开发者类型</Cell>}
                             cell={props => (
                                              <Cell {...props}>
-                                                  {this.state.keyList[props.rowIndex].userType}
+                                                  {userTypeList.getText(this.state.keyList[props.rowIndex].userType)}
                                                </Cell>
                                           )}
                             width={200}

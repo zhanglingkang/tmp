@@ -3,7 +3,7 @@ var Modal = require('react-bootstrap/lib/Modal')
 var LinkedStateMixin = require('react-addons-linked-state-mixin')
 var Select = require('../Select')
 var moment = require('moment')
-var {industryList,platFormList,sdkTypeList}=require('../../models/dict')
+var {industryList,platFormList,sdkTypeList,userTypeList}=require('../../models/dict')
 var keyService = require('../../models/keyService')
 var constant = require('../../models/constant')
 var KeyUpdate = React.createClass({
@@ -29,6 +29,7 @@ var KeyUpdate = React.createClass({
             if (data.status == constant.SUCCESSFUL) {
                 if (this.props.onUpdateSuccess) {
                     this.props.onUpdateSuccess()
+                    this.close()
                 }
             }
         })
@@ -59,7 +60,8 @@ var KeyUpdate = React.createClass({
                 </Modal.Header>
                 <Modal.Body>
                     <form>
-                        <div className="flex flex-wrap-wrap">
+                        <div className="flex flex-wrap-wrap "
+                             style={{maxHeight:'60vh',overflowY:'auto',marginBottom:'15px'}}>
                             <div className="input-container" style={{minWidth:"360px"}}>
                                 <div className="form-group">
                                     <label>Key</label>
@@ -132,19 +134,11 @@ var KeyUpdate = React.createClass({
                             </div>
                             <div className="input-container">
                                 <div className="form-group">
-                                    <label>key使用场景描述</label>
-                                    <input type="text" className="form-control"
-                                           valueLink={this.linkState('keyScence')}
-                                    />
-
-                                </div>
-                            </div>
-                            <div className="input-container">
-                                <div className="form-group">
                                     <label>行业类型</label>
 
                                     <div>
-                                        <Select optionsList={industryList} value={this.state.keyIndustryId}
+                                        <Select width="196px" optionsList={industryList}
+                                                value={this.state.keyIndustryId}
                                                 onChange={(newValue)=>{this.state.keyIndustryId=newValue}}/>
                                     </div>
 
@@ -156,16 +150,16 @@ var KeyUpdate = React.createClass({
                                     <input type="text" className="form-control"
                                            valueLink={this.linkState('userDevname')}
                                     />
-
                                 </div>
                             </div>
                             <div className="input-container">
                                 <div className="form-group">
                                     <label>开发者类型</label>
-                                    <input type="text" className="form-control"
-                                           valueLink={this.linkState('userType')}
-                                    />
-
+                                    <div>
+                                        <Select width="196px" optionsList={userTypeList} value={this.state.userDevname}
+                                                onChange={(newValue)=>{this.state.userDevname=newValue}}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                             <div className="input-container">
@@ -214,11 +208,20 @@ var KeyUpdate = React.createClass({
                                 </div>
                             </div>
                             <br />
-                            <div className="input-container">
+                            <div className="input-container flex-100">
                                 <div className="form-group">
                                     <label>开发者简介</label>
                                     <textarea className="form-control"
                                               valueLink={this.linkState('userIntro')}
+                                    />
+
+                                </div>
+                            </div>
+                            <div className="input-container flex-100">
+                                <div className="form-group">
+                                    <label>key使用场景描述</label>
+                                    <textarea className="form-control"
+                                              valueLink={this.linkState('keyScence')}
                                     />
 
                                 </div>
